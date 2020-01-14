@@ -1,0 +1,18 @@
+{
+  "description": "A test subscription",
+  "subject": {
+    "entities": [
+      {
+        "idPattern": ".*",
+        "type": "Room"
+      }
+    ]
+  },
+  "notification": {
+    "http": {
+      "url": "http://host.docker.internal:3000/Room"
+    },
+    "attrs": []
+  },
+  "expires": "2040-01-01T14:00:00.00Z"
+}

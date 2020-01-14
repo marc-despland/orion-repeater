@@ -1,0 +1,30 @@
+{
+  "name": "orion-repeater",
+  "version": "1.0.0",
+  "description": "ORION NGSIv2 repeater",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marc-despland/orion-repeater.git"
+  },
+  "keywords": [
+    "fiware",
+    "orion",
+    "ngsi",
+    "ngsiv2"
+  ],
+  "author": "Marc Despland",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/marc-despland/orion-repeater/issues"
+  },
+  "homepage": "https://github.com/marc-despland/orion-repeater#readme",
+  "dependencies": {
+    "axios": "^0.19.1",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1"
+  }
+}

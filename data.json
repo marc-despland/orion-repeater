@@ -1,0 +1,14 @@
+{
+    "id": "Room2",
+    "type": "Room",
+    "pressure": {
+        "type": "Integer",
+        "value": 22,
+        "metadata": {}
+    },
+    "temperature": {
+        "type": "Float",
+        "value": 23,
+        "metadata": {}
+    }
+}
