@@ -3,6 +3,7 @@ const express = require('express')
 const app = express()
 var bodyParser = require('body-parser');
 const axios = require('axios');
+const fs = require('fs');
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
@@ -14,6 +15,15 @@ var target_orion_url = process.env.TARGET_ORION_URL || 'http://127.0.0.1:1026';
 var target_service = process.env.TARGET_SERVICE || undefined;
 var target_service_path = process.env.TARGET_SERVICE_PATH|| undefined;
 var target_auth_token = process.env.TARGET_AUTH_TOKEN|| undefined;
+
+if (process.env.TARGET_AUTH_TOKEN_FILE!==undefined) {
+    try {
+        target_auth_token = fs.readFileSync(process.env.TARGET_AUTH_TOKEN_FILE);
+    } catch (exceptio) {
+        console.log("Failed to read secret "+process.env.TARGET_AUTH_TOKEN_FILE);
+        target_auth_token=undefined
+    }
+}
 
 app.all('*', intercept);
 
