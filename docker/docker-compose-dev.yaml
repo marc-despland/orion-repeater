@@ -5,7 +5,7 @@ services:
     environment:
       - LISTEN_PORT=8080
       - LISTEN_IP=0.0.0.0 
-      - TARGET_ORION_URL=http://127.0.0.1:1026
+      - TARGET_ORION_URL=http://orion:1026
       - TARGET_SERVICE=default
       - TARGET_SERVICE_PATH=/
       - TARGET_AUTH_TOKEN_FILE=/run/secrets/orionrepeater.auth.token
@@ -16,6 +16,38 @@ services:
       - ..:/app
     secrets:
       - orionrepeater.auth.token
+  oriondb:
+    image: mongo
+    command: --auth
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=mongo 
+      - MONGO_INITDB_ROOT_PASSWORD_FILE=/run/secrets/orion.db.root.password 
+      - MONGO_INITDB_DATABASE=admin
+      - ORIONDB_PASSWORD_FILE=/run/secrets/orion.db.password
+    volumes:
+      - orion-db:/data/db
+      - ./oriondb:/docker-entrypoint-initdb.d
+    secrets:
+      - orion.db.root.password
+      - orion.db.password
+  orion:
+    build: ./orion
+    image: my-orion
+    environment:
+      - DB_HOST=oriondb 
+      - DB=orion 
+      - DB_USER=orion 
+      - DB_PASSWORD_FILE=/run/secrets/orion.db.password
+    ports:
+      - "1026:1026"
+    secrets:
+      - orion.db.password
 secrets:
     orionrepeater.auth.token:
         file: ./secrets/orionrepeater.auth.token
+  orion.db.root.password:
+    file: ./secrets/orion.db.root.password
+  orion.db.password:
+    file: ./secrets/orion.db.password
+volumes:
+  orion-db:
